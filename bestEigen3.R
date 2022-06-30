@@ -8,7 +8,7 @@ bestEigen <- function(x=x,a1=NULL,a2=NULL,tol=1.0e-6,maxiter=100) {
 #
 	bad <- which(z==0)
 	good <- setdiff(1:n,bad)
-	x <- x[-bad,-bad]
+	x <- x[good,good]
 	for (i in 1:3) junk <- gc()
 	k <- nrow(x)
 	s1 <- colSums(x)/k
