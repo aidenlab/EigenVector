@@ -13,18 +13,19 @@ fout - file to store the eigenvector; REQUIRED
 binsize - binsize (in base-pairs) used with juicer dump command; REQUIRED  
 
 Run  
-Rscript --vanilla eigenVectorRscript.R --help
+Rscript eigenVectorRscript.R --help
 to see optional parameters. They are:  
 
 -t,--tolerance - precision (error in the eigenvector) - default is 1.0e-6  
 -m,--maxiter - maximum iterations - default is 100  
--s,--size - chromosome length (in basepairs) - used to determine the number of bins; if not supplied the number is determined based on the highest position encountered and may be slightly smaller than than it should be  
+-s,--size - chromosome length (in basepairs) - used to determine the number of bins; if not supplied the number is determined based on the highest position encountered and may be slightly smaller than than it should be. **Hence it is recommended to use this option.**  
 -v,--verbose - whether to output information to stdout (TRUE or FALSE) - default is FALSE
 
-**eigFromHicRscript.R** is very similar to eigenVectorRscript.R but instead reading file produced by juicer tools dump it resads the data directly from the hic file. So its first argument is hic file. Its second (additional) argument is the chromosome. Nore that chr1 is sometimes encoded as 1 and in such a case it needs to be 1 when calling eigFromHicRscript.R. It also has an additional option  
--n, --norm - which normalization to use; NONE for no normalization; other possibilities are VC, VC_SQRT, KR, etc.  
+**eigFromHicRscript.R** is very similar to eigenVectorRscript.R but instead reading file produced by juicer tools dump it resads the data directly from the hic file. So its first argument is hic file. Its second (additional) argument is the chromosome. Nore that chr1 is sometimes encoded as 1 and in such a case it needs to be 1 when calling eigFromHicRscript.R. It also has two additional options:  
+-n, --norm - which normalization to use; NONE for no normalization; other possibilities are VC, VC_SQRT, KR, SCALE, etc.  Default is NONE  
+-o, --obs - whether to use observed/expected (oe) matrix (recommended) or observed. Use -o observed for observed, otherwise o/e is used  
 Other arguments and options are like in eigenVectorRscript.R. So a typical usage is:  
-**Rscript --vanilla eigFromHicRscript.R [options] hicfile chr fout binsize**  
+**Rscript eigFromHicRscript.R [options] hicfile chr fout binsize**  
 Note that you will need strawr R package (in addition to the other two). To install strawr on linux do:  
 **sudo Rscript -e 'remotes::install_github("aidenlab/straw/R")'**  
 alternative open an R session and do:  
